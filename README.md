@@ -12,10 +12,34 @@ The undirected graph is represented in an adjacency matrix with references to th
 
 #### Circuit Elements
 * Resistor
+  * Important characteristics: Resistance
 * Capacitor
+  * Important characteristics: Capacitance
 * Inductor
+  * Important characteristics: Resistance, Inductance
+* Diode
+  * Important characteristics: Direction, Breakdown Voltage
 * Voltage source/function generator
-* Transistor - is this a special case of a node?
+  * Important characteristics: just Voltage?
+* Transistor - special case of a node - how does this fit into circuit representation?
+  * BJTs
+    * Connections: Collector, Emitter, Base
+    * Important characteristics: Type, Activation Voltage
+    * Types:
+      * NPN: V_BE > 0.7V allows current to flow from Collector to Emitter
+      * PNP: V_CE - V_BE > 0.7V allows current to flow from C->E
+    * 
+  * FETs
+    * Connections: Drain, Source, Gate
+    * Important characteristics: Type, Pinch-Off Voltage
+    * ![3D graph of JFET behavior](https://images.slideplayer.com/26/8302733/slides/slide_69.jpg)
+    * N-Channel
+      * "default on"
+      * I_DS is proportional to V_GS (ohmic) for small values of V_GS up to pinch-off voltage
+      * After pinch-off voltage, I_DS is essentially constant (I_DS_max)
+      * more negative V_GS -> less current
+    * P-Channel
+      * "default off"
 
 ### Analysis
 * KVL - find loops in graph
@@ -25,3 +49,8 @@ The undirected graph is represented in an adjacency matrix with references to th
     * it seems that analyzing all smallest loops is sufficient
 * KCL - iterate over nodes
   * does current analysis have to come after voltage analysis? 
+
+
+
+
+### Code Structure
