@@ -28,11 +28,10 @@ The undirected graph is represented in an adjacency matrix with references to th
     * Types:
       * NPN: V_BE > 0.7V allows current to flow from Collector to Emitter
       * PNP: V_CE - V_BE > 0.7V allows current to flow from C->E
-    * 
   * FETs
     * Connections: Drain, Source, Gate
     * Important characteristics: Type, Pinch-Off Voltage
-    * ![3D graph of JFET behavior](https://images.slideplayer.com/26/8302733/slides/slide_69.jpg)
+    * [3D graph of JFET behavior](https://images.slideplayer.com/26/8302733/slides/slide_69.jpg)
     * N-Channel
       * "default on"
       * I_DS is proportional to V_GS (ohmic) for small values of V_GS up to pinch-off voltage
