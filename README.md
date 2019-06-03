@@ -6,9 +6,11 @@ lt-nice is a circuit simulator written in c++
 
 ### Circuit Representation
 Circuits are represented as an undirected graph:
-* Edges are circuit components
+* Edges are circuit components (which end is connected matters)
 * Output signals are measured at nodes
-The undirected graph is represented in an adjacency matrix with references to the circuit components as entries in the matrix
+The undirected graph is represented in an adjacency list with references to the circuit components as entries in the lists
+An adjacency list is better here because a common operation for the nodal analysis, retrieving adjacent vertices, is O(1) in time complexity. Also, since the circuit is static, the disadvantages of adding/removing edges/vertices can be disregarded.
+
 
 #### Circuit Elements
 * Resistor
@@ -47,9 +49,20 @@ The undirected graph is represented in an adjacency matrix with references to th
   * is analysis of loops containing loops necessary, or are only the smallest loops necessary to analyze?
     * it seems that analyzing all smallest loops is sufficient
 * KCL - iterate over nodes
+  * https://en.wikipedia.org/wiki/Nodal_analysis
   * does current analysis have to come after voltage analysis? 
 
-
-
-
 ### Code Structure
+
+#### Classes
+* Circuit
+  * Contains graph of circuit elements
+* CircuitElement
+  * Contains information about element, left and right nodes
+  * [Connecting elements](doc/node_connection_options.png)
+  * Deleting nodes simplifies topology, reduces solving time (but increases circuit construction cost)
+    * Circuits should be built once at beginning, but may be solved multiple times
+* CircuitNode
+  * Contains references to connected elements
+* CircuitAnalysis
+  * Performs iterative analysis on a circuit
