@@ -1,0 +1,7 @@
+CIRCUIT
+ELEMENT     node_id     element_id      node_id
+ATTRIBUTE   element_id  value
+SIMULATION
+type        element_id  V=function(t)
+PLOTS
+node_id     property_to_plot            plot_name

@@ -7,3 +7,5 @@ ATTRIBUTE   C0      0.1u
 ATTRIBUTE   V0      +5V
 SIMULATION
 WAVEGEN     V0      V=sin(t)
+PLOTS
+2           I       Node_2_Current
