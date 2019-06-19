@@ -1,11 +1,11 @@
 CIRCUIT
-ELEMENT     1       R0      2
-ELEMENT     1       C0      3
-ELEMENT     2       V0      3
-ATTRIBUTE   R0      100
-ATTRIBUTE   C0      0.1u
-ATTRIBUTE   V0      +5V
+ELEMENT,1,R0,2
+ELEMENT,1,C0,3
+ELEMENT,2,V0,3
+ATTRIBUTE,R0,100
+ATTRIBUTE,C0,0.1u
+ATTRIBUTE,V0,+5V
 SIMULATION
-WAVEGEN     V0      V=sin(t)
+WAVEGEN,V0,V=sin(t)
 PLOTS
-2           I       Node_2_Current
+2,I,Node_2_Current
