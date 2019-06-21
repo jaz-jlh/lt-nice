@@ -9,6 +9,8 @@ class CircuitElement {
         CircuitNode& _right_node;
         double _value;
     public:
+        CircuitElement();
+        CircuitElement(unsigned int id, double value);
         CircuitElement(unsigned int id, CircuitNode& left_node, CircuitNode& right_node);
         ~CircuitElement();
         void add_connection(CircuitElement& other_element, CircuitNode& other_node);

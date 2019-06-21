@@ -11,6 +11,7 @@ class CircuitParser {
         const CircuitRepresentation parseFile(std::ifstream filestream);
         const Circuit generateCircuit(const CircuitRepresentation circuit);
         const CircuitElement row_to_element(std::vector<std::string> row);
+        const double parseElementValue(std::string raw_string);
         Circuit _circuit;
     public:
         CircuitParser(std::string filename);

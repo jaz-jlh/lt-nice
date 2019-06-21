@@ -65,10 +65,10 @@ const CircuitRepresentation CircuitParser::parseFile(std::ifstream filestream) {
 const CircuitElement CircuitParser::row_to_element(std::vector<std::string> row) {
     unsigned int element_id = std::stoi(row[1].substr(1));
     char element_type = row[2].at(0);
-    CircuitElement new_element;
+    CircuitElement new_element = CircuitElement();
     switch (element_type) {
         case 'R':
-            new_element = new Resistor(element_id, );
+            new_element = Resistor(element_id, );
             break;
         case 'C':
 
@@ -79,5 +79,39 @@ const CircuitElement CircuitParser::row_to_element(std::vector<std::string> row)
         default:
             std::cout << "Unrecognized element type in line: " << element_type << std::endl;
             break;
+    }
+}
+
+const double CircuitParser::parseElementValue(std::string raw_string) {
+    double value = 0.0;
+    char multiplier = '';
+    // check the string to see if we have a multiplier
+    if (isalpha(raw_string.back())) {
+        multiplier = raw_string.back();
+        raw_string.pop_back(); // remove the multiplier so we can parse the number
+    }
+    if (raw_string.find('.') == std::string::npos) {
+        // we have an int value
+        value = double(std::stoi(raw_string));
+    } else {
+        // we have a float value
+        value = std::stod(raw_string);
+    }
+    switch (multiplier) {
+    case 'u':
+        value /= 1000000;
+        break;
+    case 'm':
+        value /= 1000;
+        break;
+    case 'M':
+        value *= 1000000;
+        break;
+    case 'k':
+        value *= 1000;
+        break;
+    default:
+        std::cout << "Invalid/unsupported multiplier: " << multiplier << std::endl;
+        break;
     }
 }

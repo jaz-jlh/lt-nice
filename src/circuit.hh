@@ -16,4 +16,5 @@ class Circuit {
         ~Circuit();
         CircuitElement& getElement(const unsigned int id) const;
         CircuitNode& getNode(const unsigned int id) const;
+        void addElement(CircuitElement new_element);
 };
