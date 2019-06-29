@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <map>
+#include <optional>
 
 class Circuit {
     private:
@@ -12,9 +13,9 @@ class Circuit {
         std::map<unsigned int, CircuitElement&> _elements;
         void addWire(CircuitNode& first_node, CircuitNode& second_node);
     public:
-        Circuit(std::string filename);
+        Circuit();
         ~Circuit();
         CircuitElement& getElement(const unsigned int id) const;
-        CircuitNode& getNode(const unsigned int id) const;
+        std::optional<CircuitNode&> getNode(const unsigned int id) const;
         void addElement(CircuitElement new_element);
 };

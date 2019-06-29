@@ -2,6 +2,8 @@
 #include "circuit_parser.hh"
 #include "circuit_element.hh"
 #include "circuit_elements/resistor.hh"
+#include "circuit_elements/capacitor.hh"
+#include "circuit_elements/voltage_source.hh"
 
 #include <iostream>
 
@@ -22,20 +24,20 @@ const std::ifstream CircuitParser::readFile(const std::string filename) {
     return infile;
 }
 
-const Circuit CircuitParser::generateCircuit(const CircuitRepresentation circuit) {
-    // for (CircuitRepresentation::iterator row = circuit.begin(); row != circuit.end(); ++row) {
-    //     for(std::vector<std::string>::iterator cell = row->begin(); cell != row->end(); ++cell){
-            
-    //     }
-    // }
-    for (const auto& row : circuit) {
+const Circuit CircuitParser::generateCircuit(const CircuitRepresentation circuit_representation) {
+    Circuit circuit = Circuit();
+    for (const auto& row : circuit_representation) {
         std::string line_type = row[0];
         if(line_type == TYPE_CIRCUIT) {
             std::cout << "Generating circuit..." << std::endl;
         } else if (line_type == TYPE_ELEMENT) {
-
-        } else if (line_type == TYPE_ATTRIBUTE) {
-
+            row_to_element(row);
+            // create element
+            // check if left node id exists
+            // if it exists, attach element to it
+            // if it does not exist, create it and attach
+            // repeat for right node
+            // functionize & pass in Circuit reference?
         } else if (line_type == TYPE_SIMULATION) {
             std::cout << "simulation not implemented yet, skipping..." << std::endl;
         } else if (line_type == TYPE_PLOT) {
@@ -62,29 +64,27 @@ const CircuitRepresentation CircuitParser::parseFile(std::ifstream filestream) {
     return circuit_representation;
 }
 
-const CircuitElement CircuitParser::row_to_element(std::vector<std::string> row) {
-    unsigned int element_id = std::stoi(row[1].substr(1));
-    char element_type = row[2].at(0);
-    CircuitElement new_element = CircuitElement();
-    switch (element_type) {
-        case 'R':
-            new_element = Resistor(element_id, );
-            break;
-        case 'C':
-
-            break;
-        case 'V':
-
-            break;
-        default:
-            std::cout << "Unrecognized element type in line: " << element_type << std::endl;
-            break;
-    }
+const CircuitElement CircuitParser::row_to_element(const std::vector<std::string> row) {
+    const unsigned int element_id = std::stoi(row[2].substr(1));
+    const char element_type = row[2].at(0);
+    const double value = parseElementValue(row[3]);
+    if (element_type == 'R') {
+        CircuitElement new_element = Resistor(element_id, value);
+        return new_element;
+    } else if (element_type == 'C') {
+        CircuitElement new_element = Capacitor(element_id, value);
+        return new_element;
+    } else if (element_type == 'V') {
+        CircuitElement new_element = VoltageSource(element_id, value);
+        return new_element;
+    } else {
+        std::cout << "Unrecognized element type in line: " << element_type << std::endl;
+    } 
 }
 
 const double CircuitParser::parseElementValue(std::string raw_string) {
     double value = 0.0;
-    char multiplier = '';
+    char multiplier = ' ';
     // check the string to see if we have a multiplier
     if (isalpha(raw_string.back())) {
         multiplier = raw_string.back();
