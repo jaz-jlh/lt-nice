@@ -2,7 +2,7 @@
 
 #include "circuit_element.hh"
 
-class Resistor: public CircuitElement {
+class VoltageSource: public CircuitElement {
     private:
     public:
         using CircuitElement::CircuitElement;

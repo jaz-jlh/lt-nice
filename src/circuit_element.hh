@@ -10,10 +10,12 @@ class CircuitElement {
         double _value;
     public:
         CircuitElement();
-        CircuitElement(unsigned int id, double value);
+        CircuitElement(const unsigned int id, const double value);
         CircuitElement(unsigned int id, CircuitNode& left_node, CircuitNode& right_node);
         ~CircuitElement();
         void add_connection(CircuitElement& other_element, CircuitNode& other_node);
         void set_value(double new_value);
+        void set_left_node(CircuitNode& left_node);
+        void set_right_node(CircuitNode& right_node);        
         double get_value();
 };
