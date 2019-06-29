@@ -1,5 +1,4 @@
 CIRCUIT
-ELEMENT     node_id     element_id      node_id
-ATTRIBUTE   element_id  value
+ELEMENT     node_id     element_id  value      node_id
 SIMULATION  type        element_id  V=function(t)
 PLOT        node_id     property_to_plot            plot_name
